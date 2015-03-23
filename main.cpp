@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>  
 #include <string>
+#include "md6/md6.h"
 
 namespace fs = boost::filesystem;
 using namespace std;
@@ -23,7 +24,7 @@ void savepbuf(string filename, vector<Fileinfo> vec_finfo) {
 		file_entry = flist.add_filep();
 		file_entry->set_filepath(it.path);
 		file_entry->set_size(it.size);
-		file_entry->set_mdsixhash("NULL");
+		file_entry->set_mdsixhash(it.hash);
 
 	}
 	flist.PrintDebugString();
@@ -42,10 +43,17 @@ void get_dir_list(fs::directory_iterator iterator, vector<Fileinfo> * vec_finfo)
 		}
 		else
 		{
+			ifstream ifs;
+			ifs.open(finfo.path, std::ios_base::binary);
+			string strifs((istreambuf_iterator<char>(ifs)),
+				(istreambuf_iterator<char>()));
+			md6_state hashstate;
+			md6_init(&hashstate, 128);
+			md6_update(&hashstate, strifs);
 			finfo.path = iterator->path().string();
 			replace(finfo.path.begin(), finfo.path.end(), '\\', '/');
 			finfo.size = fs::file_size(iterator->path());
-			finfo.hash = "NOT YET";
+			finfo.hash = hashstate.hexhashval;
 			finfo.flag = 'N';
 			vec_finfo->push_back(finfo);
 		}
