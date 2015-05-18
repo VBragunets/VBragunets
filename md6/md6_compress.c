@@ -379,14 +379,4 @@ std::string md6(const std::string str)
  
     return md6.hexdigest();
 }
-
-int md6_init( md6_state *st, int d) {
-	st->d = d;
-	return 0;
-}
-
-int md6_update( md6_state *st, const std::string data) {
-	st->hexhashval = md6(data);
-	return 0;
-}
 /* end of md6_compress.c */

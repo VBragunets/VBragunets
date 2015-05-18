@@ -133,7 +133,6 @@ const int Filep::kMdsixhashFieldNumber;
 Filep::Filep()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:nsofdir.Filep)
 }
 
 void Filep::InitAsDefaultInstance() {
@@ -143,28 +142,25 @@ Filep::Filep(const Filep& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:nsofdir.Filep)
 }
 
 void Filep::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  filepath_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  filepath_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   size_ = 0;
-  mdsixhash_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  mdsixhash_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 Filep::~Filep() {
-  // @@protoc_insertion_point(destructor:nsofdir.Filep)
   SharedDtor();
 }
 
 void Filep::SharedDtor() {
-  if (filepath_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+  if (filepath_ != &::google::protobuf::internal::kEmptyString) {
     delete filepath_;
   }
-  if (mdsixhash_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+  if (mdsixhash_ != &::google::protobuf::internal::kEmptyString) {
     delete mdsixhash_;
   }
   if (this != default_instance_) {
@@ -193,15 +189,15 @@ Filep* Filep::New() const {
 }
 
 void Filep::Clear() {
-  if (_has_bits_[0 / 32] & 7) {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_filepath()) {
-      if (filepath_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+      if (filepath_ != &::google::protobuf::internal::kEmptyString) {
         filepath_->clear();
       }
     }
     size_ = 0;
     if (has_mdsixhash()) {
-      if (mdsixhash_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+      if (mdsixhash_ != &::google::protobuf::internal::kEmptyString) {
         mdsixhash_->clear();
       }
     }
@@ -212,25 +208,21 @@ void Filep::Clear() {
 
 bool Filep::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:nsofdir.Filep)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
+  while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required string filepath = 1;
       case 1: {
-        if (tag == 10) {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_filepath()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
             this->filepath().data(), this->filepath().length(),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "filepath");
+            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
-          goto handle_unusual;
+          goto handle_uninterpreted;
         }
         if (input->ExpectTag(16)) goto parse_size;
         break;
@@ -238,14 +230,15 @@ bool Filep::MergePartialFromCodedStream(
 
       // required int32 size = 2;
       case 2: {
-        if (tag == 16) {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_size:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &size_)));
           set_has_size();
         } else {
-          goto handle_unusual;
+          goto handle_uninterpreted;
         }
         if (input->ExpectTag(26)) goto parse_mdsixhash;
         break;
@@ -253,27 +246,26 @@ bool Filep::MergePartialFromCodedStream(
 
       // required string mdsixhash = 3;
       case 3: {
-        if (tag == 26) {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_mdsixhash:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_mdsixhash()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
             this->mdsixhash().data(), this->mdsixhash().length(),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "mdsixhash");
+            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
-          goto handle_unusual;
+          goto handle_uninterpreted;
         }
-        if (input->ExpectAtEnd()) goto success;
+        if (input->ExpectAtEnd()) return true;
         break;
       }
 
       default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+          return true;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -281,25 +273,18 @@ bool Filep::MergePartialFromCodedStream(
       }
     }
   }
-success:
-  // @@protoc_insertion_point(parse_success:nsofdir.Filep)
   return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:nsofdir.Filep)
-  return false;
 #undef DO_
 }
 
 void Filep::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:nsofdir.Filep)
   // required string filepath = 1;
   if (has_filepath()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->filepath().data(), this->filepath().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "filepath");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
       1, this->filepath(), output);
   }
 
@@ -310,11 +295,10 @@ void Filep::SerializeWithCachedSizes(
 
   // required string mdsixhash = 3;
   if (has_mdsixhash()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->mdsixhash().data(), this->mdsixhash().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "mdsixhash");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
       3, this->mdsixhash(), output);
   }
 
@@ -322,18 +306,15 @@ void Filep::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:nsofdir.Filep)
 }
 
 ::google::protobuf::uint8* Filep::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:nsofdir.Filep)
   // required string filepath = 1;
   if (has_filepath()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->filepath().data(), this->filepath().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "filepath");
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->filepath(), target);
@@ -346,10 +327,9 @@ void Filep::SerializeWithCachedSizes(
 
   // required string mdsixhash = 3;
   if (has_mdsixhash()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->mdsixhash().data(), this->mdsixhash().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "mdsixhash");
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->mdsixhash(), target);
@@ -359,7 +339,6 @@ void Filep::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:nsofdir.Filep)
   return target;
 }
 
@@ -475,7 +454,6 @@ const int ArrFilep::kFilepFieldNumber;
 ArrFilep::ArrFilep()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:nsofdir.ArrFilep)
 }
 
 void ArrFilep::InitAsDefaultInstance() {
@@ -485,7 +463,6 @@ ArrFilep::ArrFilep(const ArrFilep& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:nsofdir.ArrFilep)
 }
 
 void ArrFilep::SharedCtor() {
@@ -494,7 +471,6 @@ void ArrFilep::SharedCtor() {
 }
 
 ArrFilep::~ArrFilep() {
-  // @@protoc_insertion_point(destructor:nsofdir.ArrFilep)
   SharedDtor();
 }
 
@@ -532,34 +508,30 @@ void ArrFilep::Clear() {
 
 bool ArrFilep::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:nsofdir.ArrFilep)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
+  while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated .nsofdir.Filep filep = 1;
       case 1: {
-        if (tag == 10) {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_filep:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                 input, add_filep()));
         } else {
-          goto handle_unusual;
+          goto handle_uninterpreted;
         }
         if (input->ExpectTag(10)) goto parse_filep;
-        if (input->ExpectAtEnd()) goto success;
+        if (input->ExpectAtEnd()) return true;
         break;
       }
 
       default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+          return true;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -567,18 +539,12 @@ bool ArrFilep::MergePartialFromCodedStream(
       }
     }
   }
-success:
-  // @@protoc_insertion_point(parse_success:nsofdir.ArrFilep)
   return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:nsofdir.ArrFilep)
-  return false;
 #undef DO_
 }
 
 void ArrFilep::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:nsofdir.ArrFilep)
   // repeated .nsofdir.Filep filep = 1;
   for (int i = 0; i < this->filep_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
@@ -589,12 +555,10 @@ void ArrFilep::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:nsofdir.ArrFilep)
 }
 
 ::google::protobuf::uint8* ArrFilep::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:nsofdir.ArrFilep)
   // repeated .nsofdir.Filep filep = 1;
   for (int i = 0; i < this->filep_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
@@ -606,7 +570,6 @@ void ArrFilep::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:nsofdir.ArrFilep)
   return target;
 }
 
@@ -664,7 +627,9 @@ void ArrFilep::CopyFrom(const ArrFilep& from) {
 
 bool ArrFilep::IsInitialized() const {
 
-  if (!::google::protobuf::internal::AllAreInitialized(this->filep())) return false;
+  for (int i = 0; i < filep_size(); i++) {
+    if (!this->filep(i).IsInitialized()) return false;
+  }
   return true;
 }
 

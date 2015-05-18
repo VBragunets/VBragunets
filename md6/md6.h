@@ -123,21 +123,4 @@ private:
 std::string md6(const std::string str);
  
 #endif
-typedef struct {
-
-  int d;           /* desired hash bit length. 1 <= d <= 512.      */
-  int hashbitlen;  /* hashbitlen is the same as d; for NIST API    */
-
-  std::string hexhashval;
-      /* e.g. unsigned char hexhashval[129];                       */
-      /* zero-terminated string representing hex value of hashval  */
-} md6_state;
-
-int md6_init( md6_state *st,             /* state to initialize */
-		     int d                          /* hash bit length */
-		     );
-
-int md6_update( md6_state *st,             /* initialized state */
-		       std::string data            /* data portion */
-		       );
 /* end of md6.h */
